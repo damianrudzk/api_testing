@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 public class Authentication {
 
-    //@Test
+    @Test
     public void userRegistrationjava() {
 
         Client client = ClientBuilder.newClient();
@@ -107,7 +107,7 @@ public class Authentication {
     }
 
 
-    @Test
+    //@Test
     public void password_reset() {
         given()
                 .contentType(ContentType.JSON)
