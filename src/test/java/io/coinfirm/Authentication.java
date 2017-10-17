@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 public class Authentication {
 
-    @Test
+    //@Test
     public void userRegistrationjava() {
 
         Client client = ClientBuilder.newClient();
@@ -26,7 +26,7 @@ public class Authentication {
         System.out.println("body:" + response.readEntity(String.class));
     }
 
-    //@Test
+    @Test
     public void userRegistrationRestAssured() {
         given()
                 .contentType(ContentType.JSON)
