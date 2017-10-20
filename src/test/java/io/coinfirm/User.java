@@ -7,12 +7,13 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class User {
 
+    //brak dostępów
     //@Test
     public void listOfUsers() {
         given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5").and().header("Content-Type", "application/json")
-
+                .auth()
+                .oauth2("Bearer OCCYCRaMHAPx6T7LlXDb8rvHHvHQNGv2AOjYVzX32jEOuqv8pAfBRqbff4MGezeT")
 
                 .when()
                 .get("https://test.coinfirm.io:81/v2/users")
@@ -21,15 +22,15 @@ public class User {
                 .statusCode(200);
     }
 
-    //@Test
+    @Test
     public void retriveProfileUser() {
         given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5").and().header("Content-Type", "application/json")
-
+                .auth()
+                .oauth2("Bearer OCCYCRaMHAPx6T7LlXDb8rvHHvHQNGv2AOjYVzX32jEOuqv8pAfBRqbff4MGezeT")
 
                 .when()
-                .get("https://test.coinfirm.io:81/v2/users/me")
+                .get("http://api.coinfirm.io/v2/users/me")
 
                 .then()
                 .statusCode(200);
@@ -139,7 +140,7 @@ public class User {
                 .statusCode(200);
     }
 
-    @Test
+    //@Test
     public void changeUserProfilePassword() {
         given()
                 .contentType(ContentType.JSON)

@@ -3,6 +3,7 @@ package io.coinfirm;
 import com.jayway.restassured.http.ContentType;
 import org.junit.*;
 import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -13,21 +14,7 @@ import javax.ws.rs.core.MediaType;
 public class Authentication {
 
     //@Test
-    public void userRegistrationjava() {
-
-        Client client = ClientBuilder.newClient();
-        Entity payload = Entity.json("{  'email': 'damianbeat@gmail.com',  'password': '5h322{R9wp',  'name': 'Joe',  'surname': 'Doe'}");
-        Response response = client.target("https://test.coinfirm.io:81/v2/auth/register")
-                .request(MediaType.APPLICATION_JSON_TYPE)
-                .post(payload);
-
-        System.out.println("status: " + response.getStatus());
-        System.out.println("headers: " + response.getHeaders());
-        System.out.println("body:" + response.readEntity(String.class));
-    }
-
-    @Test
-    public void userRegistrationRestAssured() {
+    public void userRegistrationRestAssuredNegative() {
         given()
                 .contentType(ContentType.JSON)
                 .header("Content-Type", "application/json")
@@ -42,17 +29,19 @@ public class Authentication {
                 .post("https://test.coinfirm.io:81/v2/auth/register")
 
                 .then()
-                .statusCode(200);
-
+                //.body(containsString("User already registered"))
+                .statusCode(400);
     }
 
+    //problem z danymi na testowej bazie
     //@Test
     public void retriveAnUserToken() {
         given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5").and().header("Content-Type", "application/json")
+                .header("Authorization", "Bearer OCCYCRaMHAPx6T7LlXDb8rvHHvHQNGv2AOjYVzX32jEOuqv8pAfBRqbff4MGezeT").and().header("Content-Type", "application/json")
+
                 .body("{\n" +
-                        "   \"email\": \"damian.rudzki@coinfirm.io\",\n" +
+                        "   \"email\": \"damianbeat@gmail.com\",\n" +
                         "   \"password\": \"Coinfirm09!\"\n" +
                         "}")
 
@@ -60,7 +49,8 @@ public class Authentication {
                 .post("https://test.coinfirm.io:81/v2/auth/login")
 
                 .then()
-                .body("token", equalTo("GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5"));
+                .statusCode(200);
+                //.body("token", equalTo("OCCYCRaMHAPx6T7LlXDb8rvHHvHQNGv2AOjYVzX32jEOuqv8pAfBRqbff4MGezeT"))
 
     }
 
@@ -68,11 +58,11 @@ public class Authentication {
     public void verificationEmail() {
         given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5").and().header("Content-Type", "application/json")
-
+                .auth()
+                .oauth2("Bearer OCCYCRaMHAPx6T7LlXDb8rvHHvHQNGv2AOjYVzX32jEOuqv8pAfBRqbff4MGezeT")
 
                 .when()
-                .post("https://test.coinfirm.io:81/v2/auth/resend-verification-email")
+                .post("https://api.coinfirm.io/v2/auth/resend-verification-email")
 
                 .then()
                 .statusCode(200);
@@ -82,7 +72,8 @@ public class Authentication {
     public void userActivate() {
         given()
                 .contentType(ContentType.JSON)
-                .header("Content-Type", "application/json")
+                .auth()
+                .oauth2("Bearer OCCYCRaMHAPx6T7LlXDb8rvHHvHQNGv2AOjYVzX32jEOuqv8pAfBRqbff4MGezeT")
                 .body("{\n" +
                         "  \"key\": \"zPi1A43pQ69OySw/OI2W8Tin9B\"\n" +
                         "}")
@@ -93,12 +84,24 @@ public class Authentication {
                 .statusCode(404);
     }
 
+    //do omówienia razem ze zmianą adresu
+    //@Test
+    public void initiateEmailChange() {
+        given()
+                .contentType(ContentType.JSON)
+                .auth()
+                .oauth2("Bearer OCCYCRaMHAPx6T7LlXDb8rvHHvHQNGv2AOjYVzX32jEOuqv8pAfBRqbff4MGezeT")
+                .when()
+                .post("https://api.coinfirm.io/v2/auth/email-change")
+                .then()
+                .statusCode(404);
+    }
+
     //@Test
     public void userEmailChange() {
         given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5").and().header("Content-Type", "application/json")
-
+                .header("Content-Type", "application/json")
                 .when()
                 .post("https://test.coinfirm.io:81/v2/auth/email-change")
 
@@ -108,10 +111,25 @@ public class Authentication {
 
 
     //@Test
+    public void initiatePasswordReset() {
+        given()
+                .contentType(ContentType.JSON)
+                .header("Content-Type", "application/json")
+                .body("{\n" +
+                        "  \"email\": \"damian.rudzki@coinfirm.io\"\n" +
+                        "}")
+                .when()
+                .post("http://test.coinfirm.io:81/v2/auth/password-reset")
+
+                .then()
+                .statusCode(204);
+    }
+
+    //@Test
     public void password_reset() {
         given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5").and().header("Content-Type", "application/json")
+                .header("Content-Type", "application/json")
                 .body("{\n" +
                         "  \"email\": \"damian.rudzki@coinfirm.io\"\n" +
                         "}")
