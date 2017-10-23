@@ -8,7 +8,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class UserTest {
 
-    //@Test
+    @Test
     public void listOfUsers() {
                 given()
                 .contentType(ContentType.JSON)
@@ -23,7 +23,7 @@ public class UserTest {
 
     }
 
-    //@Test
+    @Test
     public void retriveProfileUserPositive() {
                 given()
                 .contentType(ContentType.JSON)
@@ -37,7 +37,7 @@ public class UserTest {
                 .statusCode(200);
     }
 
-    //@Test
+    @Test
     public void retriveProfileUserNegative() {
         given()
                 .contentType(ContentType.JSON)
@@ -93,7 +93,7 @@ public class UserTest {
                 .statusCode(200);
     }
 
-    //@Test
+    @Test
     public void replaceUserProfile() {
         given()
                 .contentType(ContentType.JSON)
@@ -128,7 +128,7 @@ public class UserTest {
                 .statusCode(200);
     }
 
-    //@Test
+    @Test
     public void deleteUserProfile() {
         given()
                 .contentType(ContentType.JSON)
@@ -162,7 +162,7 @@ public class UserTest {
                 .statusCode(200);
     }
 
-    //@Test
+    @Test
     public void changeUserProfilePassword() {
         given()
                 .contentType(ContentType.JSON)

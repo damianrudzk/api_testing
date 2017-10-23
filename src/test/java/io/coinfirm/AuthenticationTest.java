@@ -34,7 +34,7 @@ public class AuthenticationTest {
     }
 
     //problem z danymi na testowej bazie
-    //@Test
+    @Test
     public void retriveAnUserToken() {
         given()
                 .contentType(ContentType.JSON)
@@ -54,7 +54,7 @@ public class AuthenticationTest {
 
     }
 
-    //@Test
+    @Test
     public void verificationEmail() {
         given()
                 .contentType(ContentType.JSON)
@@ -68,7 +68,7 @@ public class AuthenticationTest {
                 .statusCode(200);
     }
 
-    //@Test
+    @Test
     public void userActivate() {
         given()
                 .contentType(ContentType.JSON)
@@ -85,7 +85,7 @@ public class AuthenticationTest {
     }
 
     //do omówienia razem ze zmianą adresu
-    //@Test
+    @Test
     public void initiateEmailChange() {
         given()
                 .contentType(ContentType.JSON)
@@ -97,7 +97,7 @@ public class AuthenticationTest {
                 .statusCode(404);
     }
 
-    //@Test
+    @Test
     public void userEmailChange() {
         given()
                 .contentType(ContentType.JSON)
@@ -110,7 +110,7 @@ public class AuthenticationTest {
     }
 
 
-    //@Test
+    @Test
     public void initiatePasswordReset() {
         given()
                 .contentType(ContentType.JSON)
@@ -125,7 +125,7 @@ public class AuthenticationTest {
                 .statusCode(204);
     }
 
-    //@Test
+    @Test
     public void password_reset() {
         given()
 
