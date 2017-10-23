@@ -1,49 +1,70 @@
 package io.coinfirm;
 
 import com.jayway.restassured.http.ContentType;
+import com.jayway.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import static com.jayway.restassured.RestAssured.given;
 
 public class User {
 
-    //brak dostępów
     //@Test
     public void listOfUsers() {
-        given()
+                given()
                 .contentType(ContentType.JSON)
                 .auth()
-                .oauth2("Bearer OCCYCRaMHAPx6T7LlXDb8rvHHvHQNGv2AOjYVzX32jEOuqv8pAfBRqbff4MGezeT")
+                .oauth2("Bearer GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5")
 
                 .when()
                 .get("https://test.coinfirm.io:81/v2/users")
 
                 .then()
                 .statusCode(200);
+
     }
 
-    @Test
-    public void retriveProfileUser() {
-        given()
+    //@Test
+    public void retriveProfileUserPositive() {
+                given()
                 .contentType(ContentType.JSON)
                 .auth()
-                .oauth2("Bearer OCCYCRaMHAPx6T7LlXDb8rvHHvHQNGv2AOjYVzX32jEOuqv8pAfBRqbff4MGezeT")
+                .oauth2("Bearer GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5")
 
                 .when()
-                .get("http://api.coinfirm.io/v2/users/me")
+                .get("https://test.coinfirm.io:81/v2/users/e3cdd4e3-3c95-422f-ba7d-b1dfca29cf72")
 
                 .then()
                 .statusCode(200);
     }
 
     //@Test
+    public void retriveProfileUserNegative() {
+        given()
+                .contentType(ContentType.JSON)
+                .auth()
+                .oauth2("Bearer GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5")
+
+                .when()
+                .get("https://test.coinfirm.io:81/v2/users/e3cdd4e3-3c95-422f-ba7d-b1dfca29cf72X")
+
+                .then()
+                .statusCode(404);
+
+
+    }
+
+    @Test
     public void editUserProfile() {
         given()
                 .contentType(ContentType.JSON)
-                .header("Authorization", "Bearer GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5").and().header("Content-Type", "application/json")
+                .auth()
+                .oauth2("Bearer GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5")
                 .body("{\n" +
-                        "  \"email\": \"damian.rudzki@coinfirm.io\",\n" +
+                        "  \"email\": \"john.doe@mail.com\",\n" +
+                        "  \"active\": 0,\n" +
+                        "  \"level\": 101,\n" +
                         "  \"public\": 1,\n" +
+                        "  \"verified\": 0,\n" +
                         "  \"type\": \"individual\",\n" +
                         "  \"name\": \"Joe\",\n" +
                         "  \"surname\": \"Doe\",\n" +
@@ -61,11 +82,12 @@ public class User {
                         "  \"avatar\": \"/upload/avatar1.png\",\n" +
                         "  \"facebook\": \"http://facebook.com/asd\",\n" +
                         "  \"twitter\": \"http://twitter.com/asd\",\n" +
-                        "  \"linkedin\": \"http://linkedin.com/asd\"\n" +
+                        "  \"linkedin\": \"http://linkedin.com/asd\",\n" +
+                        "  \"balance\": 100\n" +
                         "}")
 
                 .when()
-                .patch("https://test.coinfirm.io:81/v2/users/me")
+                .patch("https://test.coinfirm.io:81/v2/users/e3cdd4e3-3c95-422f-ba7d-b1dfca29cf72X")
 
                 .then()
                 .statusCode(200);

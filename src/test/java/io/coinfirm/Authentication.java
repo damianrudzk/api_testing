@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 public class Authentication {
 
-    //@Test
+    @Test
     public void userRegistrationRestAssuredNegative() {
         given()
                 .contentType(ContentType.JSON)
@@ -128,8 +128,7 @@ public class Authentication {
     //@Test
     public void password_reset() {
         given()
-                .contentType(ContentType.JSON)
-                .header("Content-Type", "application/json")
+
                 .body("{\n" +
                         "  \"email\": \"damian.rudzki@coinfirm.io\"\n" +
                         "}")

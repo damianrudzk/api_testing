@@ -1,19 +1,13 @@
 package io.coinfirm;
 
-import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
-import org.junit.After;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.PrintWriter;
-
 import static com.jayway.restassured.RestAssured.given;
 
 public class Reports {
 
-    //@Test
+    @Test
     public void createNewAmlBasicReport() {
         Response response;
 
@@ -29,7 +23,7 @@ public class Reports {
                         response.print();
     }
 
-    //@Test
+    @Test
     public void createNewAmlStandardReport() {
         Response response;
 

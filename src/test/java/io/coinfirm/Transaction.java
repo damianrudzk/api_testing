@@ -12,10 +12,10 @@ public class Transaction {
         given()
                 .contentType(ContentType.JSON)
                 .auth()
-                .oauth2("Bearer OCCYCRaMHAPx6T7LlXDb8rvHHvHQNGv2AOjYVzX32jEOuqv8pAfBRqbff4MGezeT")
+                .oauth2("Bearer GHxLfIGzCmaOzO1FYZAP7INZ8NnfBnzA92W69rl570rUNh1uKvOYwkX4a2Otf7d5")
 
                 .when()
-                .get("http://api.coinfirm.io/v2/transactions/credit-card/key")
+                .get("https://test.coinfirm.io:81/v2/transactions/credit-card/key")
 
                 .then()
                 .statusCode(200);
