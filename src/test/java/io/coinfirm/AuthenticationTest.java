@@ -85,7 +85,7 @@ public class AuthenticationTest {
     }
 
     //do omówienia razem ze zmianą adresu
-    @Test
+    //@Test
     public void initiateEmailChange() {
         given()
                 .contentType(ContentType.JSON)
@@ -97,7 +97,7 @@ public class AuthenticationTest {
                 .statusCode(404);
     }
 
-    @Test
+    //@Test
     public void userEmailChange() {
         given()
                 .contentType(ContentType.JSON)
@@ -110,7 +110,7 @@ public class AuthenticationTest {
     }
 
 
-    @Test
+    //@Test
     public void initiatePasswordReset() {
         given()
                 .contentType(ContentType.JSON)
@@ -125,7 +125,7 @@ public class AuthenticationTest {
                 .statusCode(204);
     }
 
-    @Test
+    //@Test
     public void password_reset() {
         given()
 
