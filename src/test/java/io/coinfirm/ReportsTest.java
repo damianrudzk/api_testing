@@ -5,7 +5,7 @@ import com.jayway.restassured.response.Response;
 import org.junit.Test;
 import static com.jayway.restassured.RestAssured.given;
 
-public class Reports {
+public class ReportsTest {
 
     @Test
     public void createNewAmlBasicReport() {

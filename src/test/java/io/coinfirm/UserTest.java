@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class User {
+public class UserTest {
 
     //@Test
     public void listOfUsers() {

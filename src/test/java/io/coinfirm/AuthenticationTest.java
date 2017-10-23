@@ -11,7 +11,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
 
-public class Authentication {
+public class AuthenticationTest {
 
     @Test
     public void userRegistrationRestAssuredNegative() {
@@ -29,7 +29,7 @@ public class Authentication {
                 .post("https://test.coinfirm.io:81/v2/auth/register")
 
                 .then()
-                //.body(containsString("User already registered"))
+                //.body(containsString("UserTest already registered"))
                 .statusCode(400);
     }
 

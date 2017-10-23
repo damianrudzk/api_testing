@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.jayway.restassured.RestAssured.given;
 
-public class Transaction {
+public class TransactionTest {
 
     @Test
     public void retrieveTransactionToken() {

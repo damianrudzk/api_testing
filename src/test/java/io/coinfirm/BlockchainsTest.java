@@ -5,7 +5,7 @@ import com.jayway.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 import static com.jayway.restassured.RestAssured.given;
 
-public class Blockchains {
+public class BlockchainsTest {
     public static Response response;
     public static String jsonAsString;
 
